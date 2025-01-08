@@ -1,0 +1,11 @@
+[init]
+  defaultBranch = main
+
+[includeIf "gitdir:~/github-ibm/"]
+  path = config.ibm
+
+[includeIf "gitdir:~/github-personal/"]
+  path = config.personal
+
+[includeIf "gitdir:/mnt/"]
+  path = config.wsl

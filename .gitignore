@@ -1,0 +1,9 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Flake
+.pre-commit-config.yaml
+flake.lock
