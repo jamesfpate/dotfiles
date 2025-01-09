@@ -1,3 +1,4 @@
 --target=~/.local/share/devbox/global/default
 --adopt
 --verbose
+--ignore=.stowrc
