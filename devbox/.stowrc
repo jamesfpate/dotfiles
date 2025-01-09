@@ -2,3 +2,4 @@
 --adopt
 --verbose
 --ignore=.stowrc
+--no-folding
