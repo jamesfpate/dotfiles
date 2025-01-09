@@ -5,7 +5,7 @@ curl -fsSL https://get.jetify.com/devbox | bash
 
 # Stow dotfiles to home directory
 brew install stow
-stow -v -R -t ~ --adopt */
+stow */
 git restore .
 
 # Apply devbox global config
