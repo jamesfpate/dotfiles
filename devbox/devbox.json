@@ -9,8 +9,7 @@
     "xclip": {
 	    "excluded_platforms": ["aarch64-darwin", "aarch64-linux"]	
     },
-    "zellij": "latest",
-    "lsd": "latest"
+    "zellij": "latest"
   },
   "shell": {
     "init_hook": [
