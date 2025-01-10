@@ -8,3 +8,4 @@ eval "$(oh-my-posh init zsh)"
 if [[ $- == *i* && -z "$ZELLIJ" ]]; then
     zellij ls
 fi
+
