@@ -2,5 +2,4 @@
 --adopt
 --verbose
 --no-folding
---ignore='\.stowrc'
 --ignore='^setup'
