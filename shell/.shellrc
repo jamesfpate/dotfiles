@@ -1,0 +1,16 @@
+#devbox
+eval "$(devbox global shellenv --init-hook)"
+
+#zellij
+if [[ $- == *i* && -z "$ZELLIJ" ]]; then
+    zellij ls
+fi
+
+#shell specific
+if [ -n "$BASH_VERSION" ]; then
+	#posh
+	eval "$(oh-my-posh init bash)"
+elif [ -n "$ZSH_VERSION" ]; then
+	#posh
+	eval "$(oh-my-posh init zsh)"
+fi

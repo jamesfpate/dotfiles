@@ -1,3 +1,1 @@
-#devbox
-eval "$(devbox global shellenv --init-hook)"
-
+[ -f ~/.shellrc ] && source ~/.shellrc
