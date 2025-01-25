@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Exit on error
-set -eu
+set -e
 
 # Detect OS
 current_os=""
@@ -65,8 +65,10 @@ fi
 #restart shell
 echo 'sourcing shell config...'
 if [ -n "$ZSH_VERSION" ]; then
+	echo "source zsh"
 	source ~/.zshrc
 elif [ -n "$BASH_VERSION" ]; then
+	echo "source bash"
 	source ~/.bashrc
 else
     echo "Unknown shell. may not work outside zsh and bash. restart to try."
