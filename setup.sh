@@ -75,8 +75,8 @@ else
 fi
 
 #set git ssh to 1password in wsl
-echo 'setting ssh to 1password in wsl'
 if [ "$current_os" = "wsl" ]; then
+	echo 'setting ssh to 1password in wsl'
 	git config --global core.sshCommand ssh.exe
 fi
 
