@@ -38,6 +38,7 @@ devbox global install
 devbox global update
 
 #stow files
+eval "$(devbox global shellenv --init-hook)"
 echo "setting up symlinks with stow..."
 cd symlinks/
 stow --restow --adopt --target ~ --verbose --no-folding */
@@ -45,6 +46,7 @@ git restore .
 cd ..
 
 #posh setup
+echo "installing fonts..."
 oh-my-posh font install meslo
 
 #source .inboundrc from .zshrc
@@ -67,11 +69,11 @@ echo "checking for linux to configure ghostty..."
 if [ -x "$(which ghostty)" ] && [ "$(uname -s)" = "Linux" ]; then
     echo "setting ghostty as default..."
     gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'
-    CUSTOM_KEYS="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$CUSTOM_KEYS/custom0/']"
-    dconf write $CUSTOM_KEYS/custom0/binding "'<Super>t'"
-    dconf write $CUSTOM_KEYS/custom0/command "'ghostty'"
-    dconf write $CUSTOM_KEYS/custom0/name "'Ghostty'"
+    #CUSTOM_KEYS="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    #gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$CUSTOM_KEYS/custom0/']"
+    #dconf write $CUSTOM_KEYS/custom0/binding "'<Super>t'"
+    #dconf write $CUSTOM_KEYS/custom0/command "'ghostty'"
+    #dconf write $CUSTOM_KEYS/custom0/name "'Ghostty'"
     
     echo "Ghostty has been set as the default terminal with Super+T keybinding"
 else
