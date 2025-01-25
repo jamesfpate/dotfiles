@@ -62,14 +62,20 @@ if ! grep -q "\[ -f ~/.shellrc \] && source ~/.shellrc" ~/.bashrc; then
    echo '[ -f ~/.shellrc ] && source ~/.shellrc' >> ~/.bashrc
 fi
 
-#set ghostty as default
+# Set ghostty as default terminal
 echo "checking for linux to configure ghostty..."
 if [ -x "$(which ghostty)" ] && [ "$(uname -s)" = "Linux" ]; then
-	echo "setting ghostty as default..."
-	gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'		
-	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding "'<Super>t'"
-	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'ghostty'"
-	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name "'Ghostty'"	
+    echo "setting ghostty as default..."
+    gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'
+    CUSTOM_KEYS="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$CUSTOM_KEYS/custom0/']"
+    dconf write $CUSTOM_KEYS/custom0/binding "'<Super>t'"
+    dconf write $CUSTOM_KEYS/custom0/command "'ghostty'"
+    dconf write $CUSTOM_KEYS/custom0/name "'Ghostty'"
+    
+    echo "Ghostty has been set as the default terminal with Super+T keybinding"
+else
+    echo "Ghostty is not installed or this is not a Linux system"
 fi
 
 #restart shell
