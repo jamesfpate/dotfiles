@@ -6,6 +6,3 @@
 
 [includeIf "gitdir:~/github-personal/"]
   path = config.personal
-
-[includeIf "gitdir:/mnt/"]
-  path = config.wsl

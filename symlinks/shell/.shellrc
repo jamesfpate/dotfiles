@@ -1,0 +1,29 @@
+#devbox
+eval "$(devbox global shellenv --init-hook)"
+
+#zellij
+if [[ $- == *i* && -z "$ZELLIJ" ]]; then
+    zellij ls
+fi
+
+#shell specific
+if [ -n "$BASH_VERSION" ]; then
+	#posh
+	eval "$(oh-my-posh init bash)"
+elif [ -n "$ZSH_VERSION" ]; then
+	#posh
+	eval "$(oh-my-posh init zsh)"
+fi
+
+#lsd
+alias ls='lsd'
+alias la='lsd -la'
+alias ll='lsd -l'
+alias lt='lsd --tree'
+
+#1password
+alias 1l="eval $(op signin --account my.1password.com)"
+alias 1r="op run --no-masking --env-file=$HOME/.1password-personal --"
+alias 1s="1l && 1r devbox shell"
+alias 1="1s"
+alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"

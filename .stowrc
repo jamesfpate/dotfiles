@@ -1,5 +1,5 @@
 --target=~
---adopt
+--dir=./symlinks
 --verbose
 --no-folding
---ignore='^setup'
+--restow

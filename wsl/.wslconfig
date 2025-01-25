@@ -1,5 +1,0 @@
-[user]
-default=~/.nix-profile/bin/zsh
-
-[interop]
-enabled = true
