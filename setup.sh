@@ -32,7 +32,7 @@ echo "installing devbox packages..."
 devbox global add _1password git go-task jq lsd neovim oh-my-posh python@3.11 stow zellij 
 devbox global add xclip zsh --exclude-platform aarch64-darwin,x86_64-darwin
 if [ "$current_os" != "wsl" ]; then
-	devbox global add ghostty
+	devbox global add github:ghostty-org/ghostty
 fi
 devbox global install
 devbox global update
