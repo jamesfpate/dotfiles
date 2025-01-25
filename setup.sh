@@ -62,6 +62,13 @@ if ! grep -q "\[ -f ~/.shellrc \] && source ~/.shellrc" ~/.bashrc; then
    echo '[ -f ~/.shellrc ] && source ~/.shellrc' >> ~/.bashrc
 fi
 
+#set ghostty as default
+echo "checking for linux to configure ghostty..."
+if [ -x "$(which ghostty)" ] && [ "$(uname -s)" = "Linux" ]; then
+	echo "setting ghostty as default..."
+	gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'		
+fi
+
 #restart shell
 echo 'sourcing shell config...'
 if [ -n "$ZSH_VERSION" ]; then
