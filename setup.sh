@@ -67,6 +67,9 @@ echo "checking for linux to configure ghostty..."
 if [ -x "$(which ghostty)" ] && [ "$(uname -s)" = "Linux" ]; then
 	echo "setting ghostty as default..."
 	gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'		
+	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding "'<Super>t'"
+	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'ghostty'"
+	dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name "'Ghostty'"	
 fi
 
 #restart shell
