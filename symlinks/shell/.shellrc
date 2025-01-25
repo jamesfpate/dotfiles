@@ -22,7 +22,7 @@ alias ll='lsd -l'
 alias lt='lsd --tree'
 
 #1password
-alias 1l="eval $(op signin --account my.1password.com)"
+alias 1l='eval $(op signin --account my.1password.com)'
 alias 1r="op run --no-masking --env-file=$HOME/.1password-personal --"
 alias 1s="1l && 1r devbox shell"
 alias 1="1s"
