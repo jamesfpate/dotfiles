@@ -40,7 +40,7 @@ devbox global update
 #stow files
 echo "setting up symlinks with stow..."
 cd symlinks/
-stow --restow --override='.*' --adopt --target ~ --verbose --no-folding */
+stow --restow --adopt --target ~ --verbose --no-folding */
 git restore .
 cd ..
 
