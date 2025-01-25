@@ -39,8 +39,10 @@ devbox global update
 
 #stow files
 echo "setting up symlinks with stow..."
-stow --restow --adopt --target=$HOME --verbose --no-folding --dir=./symlinks */
+cd symlinks/
+stow --restow --override='.*' --adopt --target ~ --verbose --no-folding */
 git restore .
+cd ..
 
 #posh setup
 oh-my-posh font install meslo
