@@ -1,6 +1,11 @@
 #devbox
 eval "$(devbox global shellenv --init-hook)"
 
+#brew
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 #zellij
 if [[ $- == *i* && -z "$ZELLIJ" ]]; then
     zellij ls
