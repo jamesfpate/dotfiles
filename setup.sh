@@ -39,7 +39,7 @@ devbox global update
 
 #stow files
 echo "setting up symlinks with stow..."
-stow --adopt */
+stow --restow --adopt -target=~ --verbose --no-folding --dir=./symlinks */
 git restore .
 
 #posh setup
