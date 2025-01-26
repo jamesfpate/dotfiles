@@ -9,4 +9,5 @@ tasks:
     desc: start keywordspark devbox
     dir: ~/github-personal/keywordspark/
     cmds:
-      - devbox shell -- zellij attach -c keywordspark 
+      - devbox run
+      

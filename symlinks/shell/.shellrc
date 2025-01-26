@@ -20,6 +20,11 @@ elif [ -n "$ZSH_VERSION" ]; then
 	eval "$(oh-my-posh init zsh --config ~/.config/omp/config.omp.json)"
 fi
 
+#start devbox
+if command -v devbox &> /dev/null && [[ -f devbox.json ]]; then
+    devbox shell
+fi
+
 #lsd
 alias ls='lsd'
 alias la='lsd -la'
@@ -32,3 +37,4 @@ alias 1r="op run --no-masking --env-file=$HOME/.1password-personal --"
 alias 1s="1l && 1r devbox shell"
 alias 1="1s"
 alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"
+alias kw="cd ~/github-personal/keywordspark/ && zellij attach --create $(basename `pwd`)"
