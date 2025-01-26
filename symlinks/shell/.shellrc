@@ -21,7 +21,7 @@ elif [ -n "$ZSH_VERSION" ]; then
 fi
 
 #start devbox
-if command -v devbox &> /dev/null && [[ -f devbox.json ]]; then
+if [[ -z "$DEVBOX_SHELL" ]] && command -v devbox &> /dev/null && [[ -f devbox.json ]]; then
     devbox shell
 fi
 
