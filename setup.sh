@@ -45,12 +45,13 @@ else
 fi
 
 #add devbox shell hooks
-echo "adding devbox shell hooks"
+echo "adding zsh shell hook"
 # For .zshrc
 touch ~/.zshrc
 if [[ $(head -n1 ~/.zshrc 2>/dev/null) != 'eval "$(devbox global shellenv --init-hook)"' ]]; then
     echo 'eval "$(devbox global shellenv --init-hook)"' | cat - ~/.zshrc > temp && mv temp ~/.zshrc
 fi
+echo "adding bash shell hook"
 # For .bashrc
 touch ~/.bashrc
 if [[ $(head -n1 ~/.bashrc 2>/dev/null) != 'eval "$(devbox global shellenv --init-hook)"' ]]; then
