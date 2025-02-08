@@ -59,6 +59,7 @@ if [[ $(head -n1 ~/.bashrc 2>/dev/null) != 'eval "$(devbox global shellenv --ini
 fi
 
 #refresh shell
+echo "refresh shell"
 refresh_shell
 
 #devbox setup
