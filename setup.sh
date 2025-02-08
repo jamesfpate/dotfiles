@@ -17,6 +17,24 @@ else
 fi
 echo "current os is $current_os"
 
+
+#current shell
+current_shell=$(basename "$SHELL")
+echo "Current shell: $current_shell"
+
+
+#refresh shell
+refresh_shell() {
+    if [ "$current_shell" = "zsh" ]; then
+        source ~/.zshrc
+    elif [ "$current_shell" = "bash" ]; then
+        source ~/.bashrc
+    else
+        echo "Unsupported shell: $current_shell"
+        return 1
+    fi
+}
+
 #install devbox
 if command -v devbox &> /dev/null; then
     echo "devbox is installed"
@@ -24,19 +42,41 @@ if command -v devbox &> /dev/null; then
 else
     echo "installing devbox"
     curl -fsSL https://get.jetify.com/devbox | bash
-    eval "$(devbox global shellenv)"
 fi
+
+#add devbox shell hooks
+echo "adding devbox shell hooks"
+# For .zshrc
+touch .zshrc
+if [[ $(head -n1 ~/.zshrc 2>/dev/null) != 'eval "$(devbox global shellenv --init-hook)"' ]]; then
+    echo 'eval "$(devbox global shellenv --init-hook)"' | cat - ~/.zshrc > temp && mv temp ~/.zshrc
+fi
+# For .bashrc
+touch .bashrc
+if [[ $(head -n1 ~/.bashrc 2>/dev/null) != 'eval "$(devbox global shellenv --init-hook)"' ]]; then
+    echo 'eval "$(devbox global shellenv --init-hook)"' | cat - ~/.bashrc > temp && mv temp ~/.bashrc
+fi
+
+#refresh shell
+refresh_shell
 
 #devbox setup
 echo "installing devbox packages..."
-devbox global add _1password git go-task jq lsd neovim oh-my-posh python@3.11 stow zellij 
+devbox global add _1password git go-task jq lsd neovim oh-my-posh python@3.13 stow zellij 
+#non mac
 devbox global add xclip zsh --exclude-platform aarch64-darwin,x86_64-darwin
+#wsl
 if [ "$current_os" != "wsl" ]; then
 	devbox global add github:ghostty-org/ghostty
 fi
 devbox global install
 devbox global update
+echo "devbox global packages:"
+devbox global list
 
+#stow setup
+echo "check if stow avaiable"
+which stow
 #stow files
 eval "$(devbox global shellenv --init-hook)"
 echo "setting up symlinks with stow..."
@@ -49,7 +89,8 @@ cd ..
 echo "installing fonts..."
 oh-my-posh font install meslo
 
-#source .inboundrc from .zshrc
+
+#source .shellrc from .zshrc
 echo "adding ~/.shellrc to zsh and bash rc files..."
 touch ~/.zshrc
 if ! grep -q "\[ -f ~/.shellrc \] && source ~/.shellrc" ~/.zshrc; then
@@ -57,40 +98,33 @@ if ! grep -q "\[ -f ~/.shellrc \] && source ~/.shellrc" ~/.zshrc; then
     echo '[ -f ~/.shellrc ] && source ~/.shellrc' >> ~/.zshrc
 fi
 
-#source .inboundrc from .bashrc
+#source .shellrc from .bashrc
 touch ~/.bashrc
 if ! grep -q "\[ -f ~/.shellrc \] && source ~/.shellrc" ~/.bashrc; then
    echo "Adding source line to ~/.bashrc"
    echo '[ -f ~/.shellrc ] && source ~/.shellrc' >> ~/.bashrc
 fi
 
+#refresh shell
+refresh_shell
+
 # Set ghostty as default terminal
 echo "checking for linux to configure ghostty..."
 if [ -x "$(which ghostty)" ] && [ "$(uname -s)" = "Linux" ]; then
     echo "setting ghostty as default..."
-    gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'
+    #gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty'
     #CUSTOM_KEYS="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
     #gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$CUSTOM_KEYS/custom0/']"
     #dconf write $CUSTOM_KEYS/custom0/binding "'<Super>t'"
     #dconf write $CUSTOM_KEYS/custom0/command "'ghostty'"
     #dconf write $CUSTOM_KEYS/custom0/name "'Ghostty'"
-    
-    echo "Ghostty has been set as the default terminal with Super+T keybinding"
+    #echo "Ghostty has been set as the default terminal with Super+T keybinding"
 else
     echo "Ghostty is not installed or this is not a Linux system"
 fi
 
-#restart shell
-echo 'sourcing shell config...'
-if [ -n "$ZSH_VERSION" ]; then
-	echo "source zsh"
-	source ~/.zshrc
-elif [ -n "$BASH_VERSION" ]; then
-	echo "source bash"
-	source ~/.bashrc
-else
-    echo "Unknown shell. may not work outside zsh and bash. restart to try."
-fi
+#refresh shell
+refresh_shell
 
 #set git ssh to 1password in wsl
 if [ "$current_os" = "wsl" ]; then
@@ -108,6 +142,9 @@ if [ "$current_os" != "mac" ]; then
 	# Set devbox's zsh as default shell
 	chsh -s "$DEVBOX_ZSH"
 fi
+
+#refresh shell
+refresh_shell
 
 #setup 1password cli
 if [ "$current_os" = "wsl" ]; then
