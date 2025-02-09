@@ -26,9 +26,11 @@ echo "Current shell: $current_shell"
 #refresh shell
 refresh_shell() {
     if [ "$current_shell" = "zsh" ]; then
-        source ~/.zshrc
+	echo "sourcing zsh"
+	    source ~/.zshrc
     elif [ "$current_shell" = "bash" ]; then
-        source ~/.bashrc
+        echo "sourcing bash"
+	    source ~/.bashrc
     else
         echo "Unsupported shell: $current_shell"
         return 1
