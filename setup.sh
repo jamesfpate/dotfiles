@@ -79,6 +79,7 @@ devbox global list
 #stow setup
 echo "check if stow avaiable"
 which stow
+
 #stow files
 eval "$(devbox global shellenv --init-hook)"
 echo "setting up symlinks with stow..."
