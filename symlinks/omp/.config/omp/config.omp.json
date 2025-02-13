@@ -36,18 +36,18 @@
           "type": "text",
           "style": "plain",
           "background": "transparent",
-          "foreground": "p:terminal-blue",
+          "foreground": "p:terminal-green",
           "template": "\u279c "
         },
 	{
 	  "type": "path",
 	  "style": "plain",
-	  "foreground": "p:terminal-magenta",
+	  "foreground": "p:terminal-green",
 	  "properties": {
 	    "style": "full",
 	    "folder_separator_icon": " > "
 	  },
-	  "template": "<b>{{ .Path }}</b> <p:light-sky-blue>\u26a1</>"
+	  "template": "<b>{{ .Path }}</b> <p:terminal-black>\u26a1</>"
 	},
         {
           "type": "git",
