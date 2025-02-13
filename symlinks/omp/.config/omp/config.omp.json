@@ -39,15 +39,16 @@
           "foreground": "p:terminal-blue",
           "template": "\u279c "
         },
-        {
-          "type": "path",
-          "style": "plain",
-          "foreground": "p:terminal-magenta",
-          "properties": {
-            "style": "folder"
-          },
-          "template": "<b>{{ .Path }}</b> <p:light-sky-blue>\u26a1</>"
-        },
+	{
+	  "type": "path",
+	  "style": "plain",
+	  "foreground": "p:terminal-magenta",
+	  "properties": {
+	    "style": "full",
+	    "folder_separator_icon": " > "
+	  },
+	  "template": "<b>{{ .Path }}</b> <p:light-sky-blue>\u26a1</>"
+	},
         {
           "type": "git",
           "style": "plain",
@@ -58,7 +59,7 @@
             "{{ if gt .Ahead 0 }}p:terminal-blue{{ end }}",
             "{{ if gt .Behind 0 }}p:celeste-blue{{ end }}"
           ],
-          "template": "({{ .HEAD}})",
+          "template": " {{.HEAD}}",
           "properties": {
             "fetch_status": true,
             "branch_icon": "\ue725 "
@@ -81,13 +82,13 @@
 	  "type": "session",
 	  "style": "plain",
 	  "foreground": "p:terminal-green",
-	  "template": "{{ if .Env.DEVBOX_SHELL_ENABLED }}📦devbox {{ end }}"
+	  "template": "{{ if .Env.DEVBOX_SHELL_ENABLED }}📦 {{ end }}"
 	},
 	{
 		"type": "python",
 		"style": "plain",
 		"foreground": "p:terminal-yellow",
-		"template": "{{ if .Venv }}({{ .Venv }}) {{ end }}\uE235 {{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+ 		"template": "{{ if .Venv }}(venv) {{ end }}\uE235 {{ .Major }}.{{ .Minor }}.{{ .Patch }}"
 	},
         {
           "type": "node",
