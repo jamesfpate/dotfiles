@@ -14,7 +14,7 @@
     "main-bg": "#24283b",
     "terminal-red": "#f7768e",
     "pistachio-green": "#9ece6a",
-    "terminal-green": "#73daca",
+    "terminal-green": "#40826D",
     "terminal-yellow": "#e0af68",
     "terminal-blue": "#7aa2f7",
     "celeste-blue": "#b4f9f8",
@@ -42,12 +42,12 @@
 	{
 	  "type": "path",
 	  "style": "plain",
-	  "foreground": "p:terminal-green",
+	  "foreground": "p:blue-black",
 	  "properties": {
 	    "style": "full",
 	    "folder_separator_icon": " > "
 	  },
-	  "template": "<b>{{ .Path }}</b> <p:terminal-black>\u26a1</>"
+	  "template": "<b>{{ .Path }} </b><p:terminal-black>\u26a1</>"
 	},
         {
           "type": "git",
