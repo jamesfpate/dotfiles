@@ -123,7 +123,7 @@
         {
           "type": "command",
           "style": "plain",
-          "foreground": "p:white-blue",
+          "foreground": "p:terminal-black",
           "properties": {
             "command": "git log --pretty=format:%cr -1 || date +%H:%M:%S",
             "shell": "bash"
