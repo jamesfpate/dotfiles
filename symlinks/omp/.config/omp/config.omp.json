@@ -77,6 +77,18 @@
       "alignment": "right",
       "overflow": "hide",
       "segments": [
+	{
+	  "type": "session",
+	  "style": "plain",
+	  "foreground": "p:terminal-green",
+	  "template": "{{ if .Env.DEVBOX_SHELL_ENABLED }}📦devbox {{ end }}"
+	},
+	{
+		"type": "python",
+		"style": "plain",
+		"foreground": "p:terminal-yellow",
+		"template": "{{ if .Venv }}({{ .Venv }}) {{ end }}\uE235 {{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+	},
         {
           "type": "node",
           "style": "plain",
@@ -88,12 +100,6 @@
           "style": "plain",
           "foreground": "p:terminal-blue",
           "template": "\ue73d {{ .Full }} "
-        },
-        {
-          "type": "python",
-          "style": "plain",
-          "foreground": "p:terminal-yellow",
-          "template": "\uE235 {{ .Full }}"
         },
         {
           "type": "julia",
