@@ -32,13 +32,6 @@
     {
       "alignment": "left",
       "segments": [
-        {
-          "type": "text",
-          "style": "plain",
-          "background": "transparent",
-          "foreground": "p:terminal-green",
-          "template": "\u279c "
-        },
 	{
 	  "type": "path",
 	  "style": "plain",
@@ -47,7 +40,7 @@
 	    "style": "full",
 	    "folder_separator_icon": " > "
 	  },
-	  "template": "<b>{{ .Path }} </b><p:terminal-black>\u26a1</>"
+	  "template": "<b>{{ .Path }} </b>"
 	},
         {
           "type": "git",
@@ -137,9 +130,9 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "p:pistachio-green",
+          "foreground": "p:terminal-yellow",
           "style": "plain",
-          "template": "\u25b6",
+          "template": "\u26a1",
           "type": "text"
         }
       ],
@@ -148,8 +141,8 @@
   ],
   "secondary_prompt": {
     "background": "transparent",
-    "foreground": "p:terminal-blue",
-    "template": "\u279c "
+    "foreground": "p:terminal-yellow",
+    "template": "\u26a1"
   },
   "final_space": true,
   "version": 3,
