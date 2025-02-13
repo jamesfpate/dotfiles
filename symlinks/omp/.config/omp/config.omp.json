@@ -151,11 +151,6 @@
     "foreground": "p:terminal-blue",
     "template": "\u279c "
   },
-  "transient_prompt": {
-    "background": "p:t-background",
-    "foreground": "p:terminal-blue",
-    "template": "\u279c "
-  },
   "final_space": true,
   "version": 3,
   "terminal_background": "p:t-background"
