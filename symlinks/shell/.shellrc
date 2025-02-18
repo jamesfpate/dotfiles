@@ -9,7 +9,8 @@ if [[ $- == *i* && -z "$ZELLIJ" ]]; then
 fi
 
 #dir color
-export LS_COLORS="di=94"
+#export LS_COLORS="di=94"
+export LS_COLORS="di=38;5;103"  # Dark blue-grey
 
 #shell specific
 if [ -n "$BASH_VERSION" ]; then
