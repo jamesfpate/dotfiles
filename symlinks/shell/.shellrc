@@ -38,4 +38,8 @@ alias 1r="op run --no-masking --env-file=$HOME/.1password-personal --"
 alias 1s="1l && 1r devbox shell"
 alias 1="1s"
 alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"
+
+#projects
+alias lab="cd ~/github-personal/homelab/ && zellij attach --create $(basename `pwd`)"
+alias dot="cd ~/github-personal/dotfiles/ && zellij attach --create $(basename `pwd`)" 
 alias kw="cd ~/github-personal/keywordspark/ && zellij attach --create $(basename `pwd`)"
