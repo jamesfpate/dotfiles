@@ -40,6 +40,6 @@ alias 1="1s"
 alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"
 
 #projects
-alias lab="cd ~/github-personal/homelab/ && zellij attach --create $(basename `pwd`)"
-alias dot="cd ~/github-personal/dotfiles/ && zellij attach --create $(basename `pwd`)" 
-alias kw="cd ~/github-personal/keywordspark/ && zellij attach --create $(basename `pwd`)"
+alias lab="cd ~/github-personal/homelab/ && zellij attach --create lab"
+alias dot="cd ~/github-personal/dotfiles/ && zellij attach --create dot" 
+alias kw="cd ~/github-personal/keywordspark/ && zellij attach --create kw"
