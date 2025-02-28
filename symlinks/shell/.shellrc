@@ -8,6 +8,15 @@ if [[ $- == *i* && -z "$ZELLIJ" ]]; then
     zellij ls
 fi
 
+#npm
+if [ ! -d ~/.npm-global ]; then
+  mkdir -p ~/.npm-global
+  npm config set prefix ~/.npm-global
+fi
+if [ -d ~/.npm-global/bin ]; then
+  export PATH=~/.npm-global/bin:$PATH
+fi
+
 #dir color
 #export LS_COLORS="di=94"
 export LS_COLORS="di=38;5;103"  # Dark blue-grey
