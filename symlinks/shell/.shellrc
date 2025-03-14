@@ -4,9 +4,9 @@ if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
 fi
 
 #zellij
-if [[ $- == *i* && -z "$ZELLIJ" ]]; then
-    zellij ls
-fi
+#if [[ $- == *i* && -z "$ZELLIJ" ]]; then
+#    zellij ls
+#fi
 
 #npm
 if [ ! -d ~/.npm-global ]; then
@@ -49,6 +49,6 @@ alias 1="1s"
 alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"
 
 #projects
-alias lab="cd ~/github-personal/homelab/ && zellij attach --create lab"
-alias dot="cd ~/github-personal/dotfiles/ && zellij attach --create dot" 
-alias kw="cd ~/github-personal/keywordspark/ && zellij attach --create kw"
+alias lab="zellij attach --create lab"
+alias dot="zellij attach --create dot" 
+alias kw="zellij attach --create kw"
