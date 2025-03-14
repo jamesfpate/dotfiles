@@ -39,13 +39,8 @@ if [[ $(head -n1 ~/.zshrc 2>/dev/null) != 'eval "$(devbox global shellenv --init
     echo 'eval "$(devbox global shellenv --init-hook)"' | cat - ~/.zshrc > temp && mv temp ~/.zshrc
 fi
 
-# For .bashrc
-if [ "$current_os" != "mac" ]; then
-	touch ~/.bashrc
-	if [[ $(head -n1 ~/.bashrc 2>/dev/null) != 'eval "$(devbox global shellenv --init-hook)"' ]]; then
-	    echo 'eval "$(devbox global shellenv --init-hook)"' | cat - ~/.bashrc > temp && mv temp ~/.bashrc
-	fi
-fi
+#refresh-global
+echo "running refresh-global"
+eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
 
 echo "devbox installed. Restart your shell and then run: bash setup.sh"
-

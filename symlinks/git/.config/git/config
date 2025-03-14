@@ -1,6 +1,9 @@
 [init]
   defaultBranch = main
 
+[includeIf "gitdir:~/github/"]
+  path = config.github
+
 [includeIf "gitdir:~/github-ibm/"]
   path = config.ibm
 
