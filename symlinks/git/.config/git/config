@@ -2,7 +2,7 @@
   defaultBranch = main
 
 [includeIf "gitdir:~/github/"]
-  path = config.personal
+  path = config.github
 
 [includeIf "gitdir:~/github-ibm/"]
   path = config.ibm
