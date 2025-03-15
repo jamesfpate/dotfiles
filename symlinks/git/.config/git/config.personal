@@ -4,3 +4,6 @@
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
+
+[include]
+    path = config.personal-signing
