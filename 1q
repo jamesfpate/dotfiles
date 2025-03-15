@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  stow:
+    description: update symlinks with stow
+    cmds:
+      - cd symlinks/
+      #- stow --restow --adopt --target ~ --verbose --no-folding */
+      - touch test
+      - git restore .
+      - cd ..
