@@ -1,9 +1,4 @@
 [user]
-    name = James Pate
-    email = james@jamespate.net
+    name = 
+    email = 
 
-[url "git@github.com:"]
-    insteadOf = https://github.com/
-
-[include]
-    path = config.personal-signing
