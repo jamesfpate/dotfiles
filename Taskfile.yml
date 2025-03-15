@@ -6,8 +6,5 @@ tasks:
   stow:
     desc: update symlinks with stow
     cmds:
-      - cd symlinks/
+      - cd symlinks && touch test && git restore . && cd ..
       #- stow --restow --adopt --target ~ --verbose --no-folding */
-      - touch test
-      - git restore .
-      - cd ..
