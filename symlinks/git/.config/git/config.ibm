@@ -1,6 +1,5 @@
-[user]
-    name = James Pate
-    email = james.f.pate@ibm.com  
-
 [url "git@github.ibm.com:"]
     insteadOf = https://github.ibm.com/
+
+[include]
+    path = config.ibm-signing
