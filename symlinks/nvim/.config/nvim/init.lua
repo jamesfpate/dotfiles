@@ -19,6 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Enable LSPs
+--vim.lsp.enable('luals')
+vim.lsp.enable('basedpyright')
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
