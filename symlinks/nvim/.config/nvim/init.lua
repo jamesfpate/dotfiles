@@ -40,3 +40,6 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true, notify = false },
 })
+
+-- Initialize LSP configurations
+require("lsp.basedpyright").setup()
