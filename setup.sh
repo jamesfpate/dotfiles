@@ -25,7 +25,7 @@ echo "Current shell: $current_shell"
 
 #devbox setup
 echo "installing devbox packages..."
-devbox global add _1password git go-task jq lsd neovim oh-my-posh python@3.13 stow zellij nodejs basedpyright lua-language-server, gopls, nodePackages.typescript-language-server
+devbox global add _1password git go-task jq lsd neovim oh-my-posh python@3.13 stow zellij nodejs basedpyright lua-language-server gopls nodePackages.typescript-language-server
 #non mac
 devbox global add xclip zsh --exclude-platform aarch64-darwin,x86_64-darwin
 #update/install devbox packages
