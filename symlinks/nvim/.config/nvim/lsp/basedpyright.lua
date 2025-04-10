@@ -1,14 +1,7 @@
-vim.lsp.config['basedpyright'] = {
-  -- Command and arguments to start the server
+return {
   cmd = { 'basedpyright-langserver', '--stdio' },
-  
-  -- Filetypes to automatically attach to
-  filetypes = { 'python' },
-  
-  -- Root directory detection
   root_markers = { 'pyproject.toml', 'setup.py', '.git' },
-  
-  -- Server specific settings
+  filetypes = { 'python' },
   settings = {
     basedpyright = {
       analysis = {

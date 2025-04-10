@@ -20,8 +20,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Enable LSPs
---vim.lsp.enable('luals')
-vim.lsp.enable('basedpyright')
+vim.lsp.enable({'basedpyright', 'luals'})
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -40,6 +39,3 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true, notify = false },
 })
-
--- Initialize LSP configurations
-require("lsp.basedpyright").setup()
