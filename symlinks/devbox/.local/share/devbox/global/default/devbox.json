@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
+  "packages": {
+    "git":        "latest",
+    "_1password": "latest",
+    "go-task":    "latest",
+    "jq":         "latest",
+    "lsd":        "latest",
+    "neovim":     "latest",
+    "oh-my-posh": "latest",
+    "stow":       "latest",
+    "zellij":     "latest",
+    "xclip": {
+      "version":            "latest",
+      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"]
+    },
+    "zsh": {
+      "version":            "latest",
+      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"]
+    },
+    "python311Packages.pip":                          "latest",
+    "gopls":                                          "latest",
+    "nodejs":                                         "latest",
+    "basedpyright":                                   "latest",
+    "lua-language-server":                            "latest",
+    "nodePackages.typescript-language-server":        "latest",
+    "python":                                         "3.11",
+    "nodePackages.eslint":                            "",
+    "tailwindcss-language-server":                    "latest",
+    "nodePackages.svelte-language-server":            "latest",
+    "nodePackages.bash-language-server":              "latest",
+    "nodePackages.dockerfile-language-server-nodejs": "latest",
+    "go":                                             "latest",
+    "nodePackages.vscode-css-languageserver-bin":     "latest"
+  },
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null",
+      "echo 'Installing templ language server...'",
+      "go install github.com/templ-lang/language-server@latest"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}
