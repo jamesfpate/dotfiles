@@ -1,5 +1,9 @@
 return {
     cmd = {''},
-    filetypes = { '' },
-    root_markers = {''},
+    filetypes = {
+
+    },
+    root_markers = {
+
+    },
 }

@@ -20,7 +20,20 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Enable LSPs
-vim.lsp.enable({'basedpyright', 'luals', 'gopls', 'typescript'})
+vim.lsp.enable({
+	'basedpyright',
+	'luals',
+	'gopls',
+	'typescript',
+	'eslint',
+	'tailwind',
+	'svelte',
+	'yaml',
+	'bash',
+	'dockerfile',
+	'templ',
+	'css'
+})
 
 -- Setup lazy.nvim
 require("lazy").setup({
