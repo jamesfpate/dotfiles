@@ -36,8 +36,6 @@
   "shell": {
     "init_hook": [
       "echo 'Welcome to devbox!' > /dev/null",
-      "echo 'Installing templ language server...'",
-      "go install github.com/templ-lang/language-server@latest"
     ],
     "scripts": {
       "test": [
