@@ -20,7 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.cmd('filetype plugin indent on')
 
 -- Set leader keys
-vim.g.mapleader = " "
+vim.g.mapleader = ";"
 vim.g.maplocalleader = "\\"
 
 -- keymap mini.pick
