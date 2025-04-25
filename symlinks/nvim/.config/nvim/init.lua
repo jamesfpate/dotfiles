@@ -24,7 +24,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- keymap mini.pick
-vim.keymap.set('n', '<leader>pf', function() require('mini.pick').builtin.files() end, { desc = 'Pick files' })
+vim.keymap.set('n', '<leader>p', function() require('mini.pick').builtin.files() end, { desc = 'Pick files' })
 vim.keymap.set('n', '<leader>pb', function() require('mini.pick').builtin.buffers() end, { desc = 'Pick buffers' })
 vim.keymap.set('n', '<leader>pg', function() require('mini.pick').builtin.grep_live() end, { desc = 'Live grep' })
 
