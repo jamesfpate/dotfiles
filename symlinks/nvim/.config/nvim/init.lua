@@ -33,6 +33,16 @@ vim.keymap.set('n', '<leader>f', function()
   require('mini.files').open()
 end, { desc = 'Open mini.files explorer' })
 
+-- LSP keybindings
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to Definition' })
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'Show References' })
+vim.keymap.set('n', 'gh', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Actions' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show Diagnostics' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next Diagnostic' })
+
 -- Enable LSPs
 vim.lsp.enable({
 	'basedpyright',
@@ -90,6 +100,48 @@ require("lazy").setup({
             preview = true,     -- Show preview of file/directory under cursor
             width_focus = 30,   -- Width of focused window
             width_preview = 40, -- Width of preview window
+          },
+        })
+      end,
+    },
+    -- LSP and completion plugins
+    {
+      "hrsh7th/nvim-cmp",
+      dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+      },
+      config = function()
+        -- Autocompletion setup
+        local cmp = require('cmp')
+        local luasnip = require('luasnip')
+
+        cmp.setup({
+          snippet = {
+            expand = function(args)
+              luasnip.lsp_expand(args.body)
+            end,
+          },
+          mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          }),
+          sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+          }, {
+            { name = 'buffer' },
+          })
+        })
+
+        -- Enable autocompletion for specific file types
+        vim.filetype.add({
+          extension = {
+            py = "python",
           },
         })
       end,
