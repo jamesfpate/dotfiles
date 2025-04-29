@@ -12,11 +12,11 @@
     "zellij":     "latest",
     "xclip": {
       "version":            "latest",
-      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"]
+      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"],
     },
     "zsh": {
       "version":            "latest",
-      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"]
+      "excluded_platforms": ["aarch64-darwin", "x86_64-darwin"],
     },
     "python311Packages.pip":                          "latest",
     "gopls":                                          "latest",
@@ -31,7 +31,8 @@
     "nodePackages.bash-language-server":              "latest",
     "nodePackages.dockerfile-language-server-nodejs": "latest",
     "go":                                             "latest",
-    "nodePackages.vscode-css-languageserver-bin":     "latest"
+    "nodePackages.vscode-css-languageserver-bin":     "latest",
+    "lazygit":                                        "latest",
   },
   "shell": {
     "init_hook": [
@@ -39,8 +40,8 @@
     ],
     "scripts": {
       "test": [
-        "echo \"Error: no test specified\" && exit 1"
-      ]
-    }
-  }
+        "echo \"Error: no test specified\" && exit 1",
+      ],
+    },
+  },
 }

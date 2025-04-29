@@ -43,6 +43,11 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show Diagn
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous Diagnostic' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next Diagnostic' })
 
+-- keymap lazygit
+vim.keymap.set('n', '<leader>gg', function() require('snacks').lazygit.open() end, { desc = 'Open lazygit' })
+vim.keymap.set('n', '<leader>gl', function() require('snacks').lazygit.log() end, { desc = 'Open lazygit log' })
+vim.keymap.set('n', '<leader>gf', function() require('snacks').lazygit.log_file() end, { desc = 'Open lazygit file log' })
+
 -- Enable LSPs
 vim.lsp.enable({
 	'basedpyright',
@@ -146,8 +151,24 @@ require("lazy").setup({
         })
       end,
     },
+    -- Add snacks.nvim with lazygit
+    {
+      "folke/snacks.nvim",
+      opts = {
+        lazygit = {
+          configure = true,
+          config = {
+            os = { editPreset = "nvim-remote" },
+            gui = {
+              nerdFontsVersion = "3",
+            },
+          },
+        },
+      },
+    },
     -- add more plugins here
   },
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true, notify = false },
 })
+
