@@ -19,6 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 -- Enable filetype detection and plugin loading
 vim.cmd('filetype plugin indent on')
 
+-- Enable line numbers
+vim.wo.number = true        -- Show absolute line numbers
+vim.wo.relativenumber = true -- Show relative line numbers
+
 -- Set leader keys
 vim.g.mapleader = ";"
 vim.g.maplocalleader = "\\"
@@ -62,6 +66,15 @@ vim.lsp.enable({
 	'dockerfile',
 	'templ',
 	'css'
+})
+
+-- Configure diagnostics for all LSPs
+vim.diagnostic.config({
+  virtual_text = true,      -- Show inline diagnostics
+  signs = true,            -- Show signs in the gutter
+  underline = true,        -- Underline the problematic code
+  update_in_insert = false, -- Don't update while typing
+  severity_sort = false,   -- Don't sort by severity
 })
 
 -- Setup lazy.nvim
