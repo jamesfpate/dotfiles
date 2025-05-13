@@ -24,7 +24,7 @@ vim.wo.number = true        -- Show absolute line numbers
 vim.wo.relativenumber = true -- Show relative line numbers
 
 -- Set leader keys
-vim.g.mapleader = ";"
+vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- keymap mini.pick
