@@ -90,6 +90,32 @@ require("lazy").setup({
       end
     },
     {
+      "tris203/precognition.nvim",
+      opts = {
+        startVisible = true,
+        showBlankVirtLine = true,
+        highlightColor = { link = "Comment" },
+        hints = {
+          Caret = { text = "^", prio = 2 },
+          Dollar = { text = "$", prio = 1 },
+          MatchingPair = { text = "%", prio = 5 },
+          Zero = { text = "0", prio = 1 },
+          w = { text = "w", prio = 10 },
+          b = { text = "b", prio = 9 },
+          e = { text = "e", prio = 8 },
+          W = { text = "W", prio = 7 },
+          B = { text = "B", prio = 6 },
+          E = { text = "E", prio = 5 },
+        },
+        gutterHints = {
+          G = { text = "G", prio = 10 },
+          gg = { text = "gg", prio = 9 },
+          PrevParagraph = { text = "{", prio = 8 },
+          NextParagraph = { text = "}", prio = 8 },
+        },
+      },
+    },
+    {
       "echasnovski/mini.pick",
       version = false,
       config = function()
@@ -119,6 +145,61 @@ require("lazy").setup({
             width_focus = 30,   -- Width of focused window
             width_preview = 40, -- Width of preview window
           },
+        })
+      end,
+    },
+    {
+      "echasnovski/mini.surround",
+      version = false,
+      config = function()
+        require('mini.surround').setup({
+          -- Add custom surroundings to be used on top of builtin ones
+          custom_surroundings = nil,
+          -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
+          highlight_duration = 500,
+          -- Module mappings
+          mappings = {
+            add = 'sa',            -- Add surrounding in Normal and Visual modes
+            delete = 'sd',         -- Delete surrounding
+            find = 'sf',           -- Find surrounding (to the right)
+            find_left = 'sF',      -- Find surrounding (to the left)
+            highlight = 'sh',      -- Highlight surrounding
+            replace = 'sr',        -- Replace surrounding
+            update_n_lines = 'sn', -- Update `n_lines`
+            suffix_last = 'l',     -- Suffix to search with "prev" method
+            suffix_next = 'n',     -- Suffix to search with "next" method
+          },
+          -- Number of lines within which surrounding is searched
+          n_lines = 20,
+          -- Whether to respect selection type
+          respect_selection_type = false,
+          -- How to search for surrounding
+          search_method = 'cover',
+          -- Whether to disable showing non-error feedback
+          silent = false,
+        })
+      end,
+    },
+    {
+      "sphamba/smear-cursor.nvim",
+      version = false,
+      config = function()
+        require('smear_cursor').setup({
+          -- Smear cursor when switching buffers or windows
+          smear_between_buffers = true,
+          -- Smear cursor when moving within line or to neighbor lines
+          smear_between_neighbor_lines = true,
+          -- Draw the smear in buffer space instead of screen space when scrolling
+          scroll_buffer_space = true,
+          -- Smear cursor in insert mode
+          smear_insert_mode = true,
+          -- Optimized settings for smooth movement
+          stiffness = 0.8,                      -- Higher stiffness for snappier movement
+          trailing_stiffness = 0.5,             -- Balanced trailing effect
+          stiffness_insert_mode = 0.6,          -- Slightly smoother in insert mode
+          trailing_stiffness_insert_mode = 0.6, -- Balanced trailing in insert mode
+          distance_stop_animating = 0.5,        -- Stop animation at a reasonable distance
+          time_interval = 7,                    -- Lower interval for smoother animation
         })
       end,
     },
