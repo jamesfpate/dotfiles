@@ -33,6 +33,7 @@
     "go":                                             "latest",
     "nodePackages.vscode-css-languageserver-bin":     "latest",
     "lazygit":                                        "latest",
+    "claude-code":                                    "latest",
   },
   "shell": {
     "init_hook": [
