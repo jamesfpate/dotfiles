@@ -25,7 +25,6 @@
     "lua-language-server":                            "latest",
     "nodePackages.typescript-language-server":        "latest",
     "python":                                         "3.11",
-    "nodePackages.eslint":                            "",
     "tailwindcss-language-server":                    "latest",
     "nodePackages.svelte-language-server":            "latest",
     "nodePackages.bash-language-server":              "latest",
@@ -34,6 +33,7 @@
     "nodePackages.vscode-css-languageserver-bin":     "latest",
     "lazygit":                                        "latest",
     "claude-code":                                    "latest",
+    "nodePackages.eslint":                            "",
   },
   "shell": {
     "init_hook": [
