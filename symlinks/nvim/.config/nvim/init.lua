@@ -264,17 +264,22 @@ require("lazy").setup({
     -- Add snacks.nvim with lazygit
     {
       "folke/snacks.nvim",
-      opts = {
-        lazygit = {
-          configure = true,
-          config = {
-            os = { editPreset = "nvim-remote" },
-            gui = {
-              nerdFontsVersion = "3",
+      priority = 1000,
+      lazy = false,
+      config = function()
+        require("snacks").setup({
+          lazygit = {
+            configure = true,
+            args = { "--use-config-file=/dev/null" },
+            config = {
+              os = { editPreset = "nvim-remote" },
+              gui = {
+                nerdFontsVersion = "3",
+              },
             },
           },
-        },
-      },
+        })
+      end,
     },
     -- NeoCodeium AI completion
     {
