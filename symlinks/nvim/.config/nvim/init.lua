@@ -23,6 +23,13 @@ vim.cmd('filetype plugin indent on')
 vim.wo.number = true        -- Show absolute line numbers
 vim.wo.relativenumber = true -- Show relative line numbers
 
+-- Auto-reload files when changed externally
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})
+
 -- Set leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -216,6 +223,7 @@ require("lazy").setup({
       "hrsh7th/nvim-cmp",
       dependencies = {
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
       },
@@ -267,6 +275,38 @@ require("lazy").setup({
           },
         },
       },
+    },
+    -- NeoCodeium AI completion
+    {
+      "monkoose/neocodeium",
+      event = "VeryLazy",
+      config = function()
+        local neocodeium = require("neocodeium")
+        neocodeium.setup({
+          manual = true, -- This is key for nvim-cmp compatibility
+        })
+        -- Auto-close nvim-cmp when AI suggestions appear
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "NeoCodeiumCompletionDisplayed",
+          callback = function()
+            require("cmp").abort()
+          end
+        })
+        -- AI completion keybindings
+        vim.keymap.set("n", "<leader>am", function()
+          neocodeium.toggle()
+        end, { desc = "Toggle AI completion mode" })
+
+        vim.keymap.set("i", "<leader>a", function()
+          neocodeium.cycle_or_complete()
+        end, { desc = "Trigger AI completion" })
+        vim.keymap.set("i", "<Tab>", function()
+          neocodeium.accept()
+        end, { desc = "Accept AI suggestion" })
+        vim.keymap.set("i", "<leader>ax", function()
+          neocodeium.clear()
+        end, { desc = "Clear AI suggestion" })
+      end
     },
     -- add more plugins here
   },
