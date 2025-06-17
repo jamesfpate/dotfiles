@@ -5,6 +5,6 @@ vim.opt_local.expandtab = true
 vim.opt_local.autoindent = true
 vim.opt_local.smartindent = true
 -- PEP 8 line length
- vim.opt_local.textwidth = 88  -- Black formatter default, adds automatic line break
+-- vim.opt_local.textwidth = 88  -- Black formatter default, adds automatic line break
 -- Highlight column
 -- vim.opt_local.colorcolumn = "88"

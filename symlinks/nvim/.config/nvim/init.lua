@@ -302,13 +302,18 @@ require("lazy").setup({
           neocodeium.toggle()
         end, { desc = "Toggle AI completion mode" })
 
-        vim.keymap.set("i", "<leader>a", function()
+        vim.keymap.set("i", "<C-a>", function()
           neocodeium.cycle_or_complete()
         end, { desc = "Trigger AI completion" })
         vim.keymap.set("i", "<Tab>", function()
-          neocodeium.accept()
-        end, { desc = "Accept AI suggestion" })
-        vim.keymap.set("i", "<leader>ax", function()
+          if neocodeium.visible() then
+            neocodeium.accept()
+          else
+            -- Fallback to regular tab behavior
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
+          end
+        end, { desc = "Accept AI suggestion or insert tab" })
+        vim.keymap.set("i", "<C-x>", function()
           neocodeium.clear()
         end, { desc = "Clear AI suggestion" })
       end
