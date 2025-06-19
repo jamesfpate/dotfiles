@@ -63,3 +63,7 @@ alias zl="zellij ls"
 alias ga="git add ."
 alias gc="git commit -m"
 alias gp="git push"
+alias gac="git add . && git commit -m"
+
+#nvim
+alias n="nvim"
