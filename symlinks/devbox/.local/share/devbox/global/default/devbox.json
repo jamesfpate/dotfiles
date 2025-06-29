@@ -35,6 +35,10 @@
     "claude-code":                                    "latest",
     "nodePackages.eslint":                            "",
     "dt-shell-color-scripts":                         "latest",
+    "zsh-autosuggestions":                            "latest",
+    "zsh-fzf-tab":                                    "latest",
+    "zsh-fast-syntax-highlighting":                   "latest",
+    "fzf":                                            "latest",
   },
   "shell": {
     "init_hook": [
