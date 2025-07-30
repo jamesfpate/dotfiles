@@ -133,7 +133,6 @@ require("lazy").setup({
     {
       "echasnovski/mini.pick",
       version = false,
-      lazy = false,
       config = function()
         require('mini.pick').setup({
           -- Your mini.pick configuration options go here
@@ -312,6 +311,7 @@ require("lazy").setup({
         })
       end,
     },
+    --[[
     -- NeoCodeium AI completion
     {
       "monkoose/neocodeium",
@@ -348,6 +348,44 @@ require("lazy").setup({
           neocodeium.clear()
         end, { desc = "Clear AI suggestion" })
       end
+    },
+    ]]
+    -- Tree-sitter for better syntax highlighting
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          -- Automatically install missing parsers when entering buffer
+          auto_install = true,
+          -- Install parsers synchronously (only applied to `ensure_installed`)
+          sync_install = false,
+          -- List of parsers to ignore installing
+          ignore_install = {},
+          -- Ensure these language parsers are installed
+          ensure_installed = {
+            "lua", "vim", "vimdoc", "query", "regex",
+            "python", "javascript", "typescript", "tsx",
+            "go", "rust", "c", "cpp", "bash", "yaml",
+            "json", "toml", "markdown", "markdown_inline",
+            "html", "css", "dockerfile", "gitignore"
+          },
+          highlight = {
+            enable = true,
+            -- Disable slow treesitter highlight for large files
+            disable = function(lang, buf)
+              local max_filesize = 100 * 1024 -- 100 KB
+              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
+                return true
+              end
+            end,
+          },
+          indent = {
+            enable = true
+          },
+        })
+      end,
     },
     -- add more plugins here
   },
