@@ -133,6 +133,7 @@ require("lazy").setup({
     {
       "echasnovski/mini.pick",
       version = false,
+      lazy = false,
       config = function()
         require('mini.pick').setup({
           -- Your mini.pick configuration options go here

@@ -39,6 +39,7 @@
     "zsh-fzf-tab":                                    "latest",
     "zsh-fast-syntax-highlighting":                   "latest",
     "fzf":                                            "latest",
+    "ripgrep":                                        "latest",
   },
   "shell": {
     "init_hook": [
