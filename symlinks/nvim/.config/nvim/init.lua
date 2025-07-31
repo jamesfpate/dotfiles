@@ -34,13 +34,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- keymap mini.pick
-vim.keymap.set('n', '<leader>p', function() require('mini.pick').builtin.files() end, { desc = 'Pick files' })
-vim.keymap.set('n', '<leader>pb', function() require('mini.pick').builtin.buffers() end, { desc = 'Pick buffers' })
-vim.keymap.set('n', '<leader>pg', function() require('mini.pick').builtin.grep_live() end, { desc = 'Live grep' })
-
--- keymap mini.files
-vim.keymap.set('n', '<leader>f', function()
+-- mini.files keymap (using <leader>e to avoid conflicts)
+vim.keymap.set('n', '<leader>e', function()
   require('mini.files').open()
 end, { desc = 'Open mini.files explorer' })
 
@@ -97,14 +92,6 @@ require("lazy").setup({
       end
     },
     {
-      "coder/claudecode.nvim",
-      config = true,
-      keys = {
-        { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-        { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-      },
-    },
-    {
       "tris203/precognition.nvim",
       opts = {
         startVisible = true,
@@ -131,15 +118,6 @@ require("lazy").setup({
       },
     },
     {
-      "echasnovski/mini.pick",
-      version = false,
-      config = function()
-        require('mini.pick').setup({
-          -- Your mini.pick configuration options go here
-        })
-      end
-    },
-    {
       "echasnovski/mini.files",
       version = false,  -- Use development version
       config = function()
@@ -161,6 +139,7 @@ require("lazy").setup({
             width_preview = 40, -- Width of preview window
           },
         })
+        -- Don't set keymap here to avoid slowdown
       end,
     },
     {
@@ -288,7 +267,15 @@ require("lazy").setup({
                 height = 5,
                 padding = 1,
               },
-              { section = "keys", gap = 1, padding = 1 },
+              {
+                section = "keys",
+                gap = 1,
+                padding = 1,
+                keys = {
+                  { icon = " ", key = "t", desc = "Find Files", action = ":Telescope find_files" },
+                  { icon = " ", key = "e", desc = "File Explorer", action = ":lua require('mini.files').open()" },
+                }
+              },
               { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
               { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
               {
@@ -386,6 +373,40 @@ require("lazy").setup({
           },
         })
       end,
+    },
+    -- Telescope for file picking
+    {
+      'nvim-telescope/telescope.nvim',
+      tag = '0.1.8',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('telescope').setup({
+          defaults = {
+            file_ignore_patterns = {
+              "node_modules", "build", "dist", "target/",
+              "%.git/", "%.devbox/", "%.DS_Store", "%.cache/",
+              "%.vscode/", "%.idea/", "%.swp", "%.swo",
+              "package%-lock%.json", "yarn%.lock", "Cargo%.lock",
+              "go%.sum", "go%.mod", "%.min%.js", "%.min%.css",
+              "%.lock"  -- Ignore all .lock files
+            },
+          },
+          pickers = {
+            find_files = {
+              hidden = true,  -- Include hidden files like .config
+            },
+          },
+        })
+        -- Telescope keymaps
+        local builtin = require('telescope.builtin')
+        vim.keymap.set('n', '<leader>t', builtin.find_files, { desc = 'Telescope find files' })
+        vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+        vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+        vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = 'Telescope grep string' })
+        vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Telescope diagnostics' })
+      end
     },
     -- add more plugins here
   },
