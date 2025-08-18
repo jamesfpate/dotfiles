@@ -63,10 +63,8 @@ elif [ -n "$ZSH_VERSION" ]; then
 	eval "$(oh-my-posh init zsh --config ~/.config/omp/config.omp.json)"
 fi
 
-#start devbox
-#if [[ -z "$DEVBOX_SHELL" ]] && command -v devbox &> /dev/null && [[ -f devbox.json ]]; then
-#    devbox shell
-#fi
+#zoxide
+eval "$(zoxide init zsh)"
 
 #lsd
 alias ls='lsd'

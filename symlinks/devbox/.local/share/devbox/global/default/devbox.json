@@ -40,6 +40,7 @@
     "zsh-fast-syntax-highlighting":                   "latest",
     "fzf":                                            "latest",
     "ripgrep":                                        "latest",
+    "zoxide":                                         "latest",
   },
   "shell": {
     "init_hook": [
