@@ -85,7 +85,6 @@ alias dot="zellij attach --create dot"
 alias kw="zellij attach --create kw"
 
 #zellij
-alias z="zellij attach"
 alias za="zellij attach"
 alias zc="zellij attach --create"
 alias zl="zellij ls"
