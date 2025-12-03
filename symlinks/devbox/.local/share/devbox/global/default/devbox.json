@@ -41,6 +41,8 @@
     "fzf":                                            "latest",
     "ripgrep":                                        "latest",
     "zoxide":                                         "latest",
+    "uv":                                             "latest",
+    "opencode":                                       "latest",
   },
   "shell": {
     "init_hook": [

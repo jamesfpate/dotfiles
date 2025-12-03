@@ -298,45 +298,30 @@ require("lazy").setup({
         })
       end,
     },
-    --[[
-    -- NeoCodeium AI completion
+    --Supermaven autocompletion
     {
-      "monkoose/neocodeium",
-      event = "VeryLazy",
+      "supermaven-inc/supermaven-nvim",
       config = function()
-        local neocodeium = require("neocodeium")
-        neocodeium.setup({
-          manual = true, -- This is key for nvim-cmp compatibility
+        require("supermaven-nvim").setup({
+          keymaps = {
+            accept_suggestion = "<Tab>",
+            clear_suggestion = "<C-]>",
+            accept_word = "<C-j>",
+          },
+          ignore_filetypes = { cpp = true }, -- or { "cpp", }
+          color = {
+            suggestion_color = "#ffffff",
+            cterm = 244,
+          },
+          log_level = "info", -- set to "off" to disable logging completely
+          disable_inline_completion = false, -- disables inline completion for use with cmp
+          disable_keymaps = false, -- disables built in keymaps for more manual control
+          condition = function()
+            return false
+          end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
         })
-        -- Auto-close nvim-cmp when AI suggestions appear
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "NeoCodeiumCompletionDisplayed",
-          callback = function()
-            require("cmp").abort()
-          end
-        })
-        -- AI completion keybindings
-        vim.keymap.set("n", "<leader>am", function()
-          neocodeium.toggle()
-        end, { desc = "Toggle AI completion mode" })
-
-        vim.keymap.set("i", "<C-a>", function()
-          neocodeium.cycle_or_complete()
-        end, { desc = "Trigger AI completion" })
-        vim.keymap.set("i", "<Tab>", function()
-          if neocodeium.visible() then
-            neocodeium.accept()
-          else
-            -- Fallback to regular tab behavior
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
-          end
-        end, { desc = "Accept AI suggestion or insert tab" })
-        vim.keymap.set("i", "<C-x>", function()
-          neocodeium.clear()
-        end, { desc = "Clear AI suggestion" })
-      end
+      end,
     },
-    ]]
     -- Tree-sitter for better syntax highlighting
     {
       "nvim-treesitter/nvim-treesitter",
