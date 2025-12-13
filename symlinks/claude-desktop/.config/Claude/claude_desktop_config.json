@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "mcp-domain-availability": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/james/github/mcp-domain-availability",
+        "src/mcp_domain_availability/main.py"
+      ]
+    }
+  }
+}
