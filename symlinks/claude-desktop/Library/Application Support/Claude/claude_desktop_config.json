@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "mcp-domain-availability": {
-      "command": "uv",
+      "command": "/Users/james/.local/share/devbox/global/default/.devbox/nix/profile/default/bin/uv",
       "args": [
         "run",
         "--directory",

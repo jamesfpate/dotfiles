@@ -20,7 +20,6 @@
     },
     "python311Packages.pip":                          "latest",
     "gopls":                                          "latest",
-    "nodejs":                                         "latest",
     "basedpyright":                                   "latest",
     "lua-language-server":                            "latest",
     "nodePackages.typescript-language-server":        "latest",
@@ -43,6 +42,9 @@
     "zoxide":                                         "latest",
     "uv":                                             "latest",
     "opencode":                                       "latest",
+    "pnpm":                                           "latest",
+    "nodejs_24":                                      "latest",
+    "air":                                            "latest",
   },
   "shell": {
     "init_hook": [
