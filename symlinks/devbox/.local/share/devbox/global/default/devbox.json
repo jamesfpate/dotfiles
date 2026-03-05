@@ -45,6 +45,7 @@
     "pnpm":                                           "latest",
     "nodejs_24":                                      "latest",
     "air":                                            "latest",
+    "yaml-language-server":                           "latest",
   },
   "shell": {
     "init_hook": [

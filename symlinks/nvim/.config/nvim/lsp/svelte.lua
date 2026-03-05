@@ -1,7 +1,7 @@
 return {
     cmd = { 'svelteserver', '--stdio' },
     filetypes = {
-	'svelete'
+	'svelte'
     },
     root_markers = {
 	'package.json',
