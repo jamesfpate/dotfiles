@@ -1,0 +1,7 @@
+#!/bin/bash
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(mise activate bash)"
+
+# Install tools from repo root mise config
+DOTFILES_DIR="{{ .chezmoi.sourceDir | dir }}"
+mise install --cd "$DOTFILES_DIR"

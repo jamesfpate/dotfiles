@@ -1,0 +1,14 @@
+#!/bin/bash
+# Add .shellrc sourcing to shell configs
+for rc in ~/.bashrc ~/.zshrc; do
+  if [ -f "$rc" ] && ! grep -q 'source.*\.shellrc' "$rc"; then
+    echo 'source ~/.shellrc' >> "$rc"
+  fi
+done
+
+{{ if eq .ostype "linux" -}}
+# Set zsh as default shell on Linux
+if command -v zsh &>/dev/null; then
+  sudo chsh -s "$(which zsh)" "$USER" 2>/dev/null || true
+fi
+{{- end }}
