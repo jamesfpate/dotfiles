@@ -1,0 +1,4 @@
+# Ignore platform-specific files
+{{- if ne .ostype "linux" }}
+.config/gnome-terminal.conf
+{{- end }}

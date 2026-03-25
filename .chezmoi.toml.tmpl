@@ -1,0 +1,7 @@
+{{- $ostype := "linux" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $ostype = "mac" -}}
+{{- end -}}
+
+[data]
+  ostype = "{{ $ostype }}"

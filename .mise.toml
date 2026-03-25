@@ -1,0 +1,17 @@
+[tools]
+# Core tools
+node = "24"
+python = "3.13"
+go = "latest"
+
+# Dev tools
+neovim = "latest"
+zellij = "latest"
+lazygit = "latest"
+lsd = "latest"
+oh-my-posh = "latest"
+ripgrep = "latest"
+fzf = "latest"
+zoxide = "latest"
+jq = "latest"
+go-task = "latest"

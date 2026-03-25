@@ -4,24 +4,98 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a dotfiles repository that manages personal configuration files across Mac, Linux, and WSL environments using GNU Stow for symlink management and Devbox for package management.
+This is a dotfiles repository that manages personal configuration files across Mac and Linux environments using Chezmoi for dotfile management and Mise for package/tool management.
 
 ## Key Commands
 
-### Initial Setup
+### Initial Setup (Linux)
 ```bash
-# Install devbox (if not already installed)
-./install-devbox.sh
+# Run full setup on Linux VM
+./setup/linux-vm.sh
+```
 
-# Run full setup
-./setup.sh
+### Initial Setup (Mac)
+```bash
+# Install mise
+curl https://mise.run | sh
+
+# Install chezmoi via mise
+mise use -g chezmoi@latest
+
+# Apply dotfiles
+chezmoi init --source .
+chezmoi apply
 ```
 
 ### Common Development Tasks
 ```bash
+# Apply dotfile changes
+chezmoi apply
+
+# Preview changes before applying
+chezmoi diff
+
+# Add a new file to chezmoi
+chezmoi add ~/.config/newapp/config
+
+# Edit a managed file
+chezmoi edit ~/.config/nvim/init.lua
+
+# Update mise tools
+mise install
+
+# See installed tools
+mise current
+```
+
+## Architecture
+
+### Structure
+- `home/` - Chezmoi source directory (marked by `.chezmoiroot`)
+  - `dot_*` - Files that map to `~/.filename`
+  - `dot_config/` - Maps to `~/.config/`
+  - `private_*` - Files with restricted permissions
+  - `run_once_*` - Scripts that run once on first apply
+- `.chezmoi.toml.tmpl` - Chezmoi config with OS detection
+- `.chezmoiignore` - Platform-specific file ignores
+- `.mise.toml` - Global tool versions managed by mise
+
+### Key Components
+1. **Mise Tools** - Development tools managed at system level:
+   - Core tools: neovim, zellij, lsd, lazygit, oh-my-posh
+   - Languages: node, python, go
+   - Utilities: ripgrep, fzf, zoxide, jq, go-task
+
+2. **Shell Configuration** - Universal `.shellrc` sourced by both bash and zsh
+   - Mise activation
+   - Antidote plugin manager (zsh-autosuggestions, zsh-syntax-highlighting, fzf-tab)
+   - Handles brew setup (Linux)
+   - npm global package path configuration
+   - Custom aliases for lsd, 1password integration
+   - Project-specific zellij sessions
+
+3. **LSPs** - Managed by Mason.nvim (not mise)
+   - Run `:Mason` in nvim to install/manage language servers
+
+4. **Platform Detection** - Automatic detection via `.chezmoi.toml.tmpl`:
+   - Mac: `ostype = "mac"`
+   - Linux: `ostype = "linux"`
+   - Used in `.chezmoiignore` and templates
+
+### Important Notes
+- LSPs are managed by Mason.nvim, not mise
+- Zsh plugins are managed by Antidote (auto-installs on first zsh load)
+- 1Password integration requires manual signin for security
+
+---
+
+## Legacy (Stow/Devbox) - Deprecated
+
+The old stow/devbox setup is preserved in `symlinks/` for reference.
+
+### Legacy Commands
+```bash
 # Update symlinks after modifying configuration files
-task stow
-# Or manually:
 cd symlinks && stow --restow --adopt --target ~ --verbose --no-folding */ && git restore . && cd ..
 
 # Update devbox packages
@@ -30,33 +104,3 @@ devbox global update
 # Refresh devbox environment
 eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
 ```
-
-## Architecture
-
-### Structure
-- `symlinks/` - Contains all configuration directories to be symlinked to home directory
-  - Each subdirectory represents a tool/application configuration
-  - Uses GNU Stow with `--no-folding` to create individual file symlinks
-  - The `--adopt` flag ensures existing files are preserved during setup
-
-### Key Components
-1. **Devbox Global Packages** - Development tools managed at system level including:
-   - Core tools: neovim, zellij, lsd, lazygit
-   - Language servers: basedpyright, lua-language-server, gopls, typescript-language-server
-   - Shell: zsh (non-Mac), oh-my-posh for prompt theming
-
-2. **Shell Configuration** - Universal `.shellrc` sourced by both bash and zsh
-   - Handles brew setup (Linux)
-   - npm global package path configuration
-   - Custom aliases for lsd, 1password integration
-   - Project-specific zellij sessions
-
-3. **Platform Detection** - Automatic detection and configuration for:
-   - WSL: Special 1password CLI setup, git SSH configuration
-   - Mac: Native shell usage
-   - Linux: Devbox zsh as default shell
-
-### Important Notes
-- Always run `git restore .` after stow operations to prevent unintended modifications
-- The setup script uses `--adopt` flag which can modify files in the repository
-- 1Password integration requires manual signin for security
