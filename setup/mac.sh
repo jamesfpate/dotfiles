@@ -67,7 +67,8 @@ fi
 echo ""
 echo "→ Installing shell-color-scripts..."
 if ! command -v colorscript &>/dev/null; then
-  git clone https://gitlab.com/dwt1/shell-color-scripts.git /tmp/shell-color-scripts
+  git clone --depth=1 https://gitlab.com/dwt1/shell-color-scripts.git /tmp/shell-color-scripts || \
+    git clone --depth=1 https://github.com/Misairuzame/shell-color-scripts.git /tmp/shell-color-scripts
   cd /tmp/shell-color-scripts
   sudo make install
   cd -

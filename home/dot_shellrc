@@ -3,23 +3,6 @@ if [[ -f ~/.config/op/service-account-token ]]; then
   export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/op/service-account-token)"
 fi
 
-#mise - detect shell automatically
-if [ -x ~/.local/bin/mise ]; then
-  if [ -n "$ZSH_VERSION" ]; then
-    eval "$(~/.local/bin/mise activate zsh)"
-  elif [ -n "$BASH_VERSION" ]; then
-    eval "$(~/.local/bin/mise activate bash)"
-  fi
-fi
-
-#mise auto-upgrade (once per week)
-MISE_UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
-if [[ ! -f "$MISE_UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$MISE_UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
-  (mise self-update --yes &>/dev/null; mise upgrade --yes &>/dev/null &)
-  mkdir -p "$(dirname "$MISE_UPGRADE_MARKER")"
-  touch "$MISE_UPGRADE_MARKER"
-fi
-
 #brew
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -31,6 +14,28 @@ if [ ! -d ~/.npm-global ]; then
   npm config set prefix ~/.npm-global
 fi
 export PATH=~/.npm-global/bin:$PATH
+
+#go
+export PATH="$HOME/go/bin:$PATH"
+
+#mise - activate last so its paths take priority
+if [ -x ~/.local/bin/mise ]; then
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(~/.local/bin/mise activate zsh)"
+    eval "$(~/.local/bin/mise hook-env -s zsh)"
+  elif [ -n "$BASH_VERSION" ]; then
+    eval "$(~/.local/bin/mise activate bash)"
+    eval "$(~/.local/bin/mise hook-env -s bash)"
+  fi
+fi
+
+#mise auto-upgrade (once per week)
+MISE_UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
+if [[ ! -f "$MISE_UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$MISE_UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
+  (mise self-update --yes &>/dev/null; mise upgrade --yes &>/dev/null &)
+  mkdir -p "$(dirname "$MISE_UPGRADE_MARKER")"
+  touch "$MISE_UPGRADE_MARKER"
+fi
 
 #zsh-only: compinit, antidote, fzf-tab
 if [ -n "$ZSH_VERSION" ]; then
