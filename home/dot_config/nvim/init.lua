@@ -326,6 +326,7 @@ require("lazy").setup({
     {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
+      main = "nvim-treesitter.configs",
       opts = {
         -- Automatically install missing parsers when entering buffer
         auto_install = true,
