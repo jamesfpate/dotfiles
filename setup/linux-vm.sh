@@ -123,6 +123,16 @@ if ! infocmp xterm-ghostty &>/dev/null; then
   curl -sL https://raw.githubusercontent.com/ghostty-org/ghostty/main/src/terminfo/ghostty.terminfo | tic -x -
 fi
 
+# ── SSH authorized keys ──────────────────────────────────────────────────────
+
+echo ""
+echo "→ Importing SSH keys from GitHub..."
+mkdir -p ~/.ssh
+curl -sL https://github.com/jamesfpate.keys >> ~/.ssh/authorized_keys
+sort -u -o ~/.ssh/authorized_keys ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
 # ── Set zsh as default shell ─────────────────────────────────────────────────
 
 echo ""
