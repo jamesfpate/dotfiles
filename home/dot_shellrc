@@ -5,7 +5,7 @@ fi
 
 #1password secrets injection
 if command -v op &>/dev/null && [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ] && [ -f "$HOME/.1password-personal" ]; then
-  source <(op inject --env-file="$HOME/.1password-personal" 2>/dev/null)
+  source <(op inject -i "$HOME/.1password-personal" 2>/dev/null)
 fi
 
 #brew
