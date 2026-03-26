@@ -99,6 +99,7 @@ alias ls='lsd'
 alias la='lsd -la'
 alias ll='lsd -l'
 alias lt='lsd --tree'
+alias vm='ssh james@code.home'
 
 #1password
 alias 1l='eval $(op signin --account my.1password.com)'
