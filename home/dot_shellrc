@@ -3,6 +3,11 @@ if [[ -f ~/.config/op/service-account-token ]]; then
   export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/op/service-account-token)"
 fi
 
+#1password secrets injection
+if command -v op &>/dev/null && [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ] && [ -f "$HOME/.1password-personal" ]; then
+  source <(op inject --env-file="$HOME/.1password-personal" 2>/dev/null)
+fi
+
 #brew
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

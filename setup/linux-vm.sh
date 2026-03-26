@@ -115,6 +115,14 @@ sudo dpkg-reconfigure -plow unattended-upgrades
 MISE_CRON="0 3 * * * $HOME/.local/bin/mise self-update --yes 2>/dev/null; $HOME/.local/bin/mise upgrade --yes 2>/dev/null"
 (crontab -l 2>/dev/null | grep -v "mise"; echo "$MISE_CRON") | crontab -
 
+# ── Ghostty terminfo ─────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing Ghostty terminfo..."
+if ! infocmp xterm-ghostty &>/dev/null; then
+  curl -sL https://raw.githubusercontent.com/ghostty-org/ghostty/main/src/terminfo/ghostty.terminfo | tic -x -
+fi
+
 # ── Set zsh as default shell ─────────────────────────────────────────────────
 
 echo ""
