@@ -63,7 +63,7 @@
           "style": "plain",
           "foreground": "p:terminal-red",
           "template": " \uf00d"
-        },
+        }
       ],
       "type": "prompt"
     },
