@@ -64,12 +64,6 @@
           "foreground": "p:terminal-red",
           "template": " \uf00d"
         },
-        {
-          "type": "session",
-          "style": "plain",
-          "foreground": "p:terminal-magenta",
-          "template": "{{ if .Env.SSH_CONNECTION }} \uf489  {{ .HostName }}{{ end }}"
-        }
       ],
       "type": "prompt"
     },
@@ -80,8 +74,8 @@
 	{
 	  "type": "session",
 	  "style": "plain",
-	  "foreground": "p:terminal-green",
-	  "template": "{{ if .Env.DEVBOX_SHELL_ENABLED }}📦 {{ end }}"
+	  "foreground": "p:terminal-magenta",
+	  "template": "{{ if .Env.SSH_CONNECTION }}\uf489 {{ .HostName }} {{ end }}{{ if .Env.DEVBOX_SHELL_ENABLED }}📦 {{ end }}"
 	},
 	{
 		"type": "python",
