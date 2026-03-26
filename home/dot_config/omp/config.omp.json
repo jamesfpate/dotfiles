@@ -55,7 +55,7 @@
 	"template": " {{.HEAD}}",
           "properties": {
             "fetch_status": true,
-            "branch_icon": "\ue725 "
+            "branch_icon": "\ue725"
           }
         },
         {
