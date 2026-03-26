@@ -326,38 +326,36 @@ require("lazy").setup({
     {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
-      config = function()
-        require("nvim-treesitter.configs").setup({
-          -- Automatically install missing parsers when entering buffer
-          auto_install = true,
-          -- Install parsers synchronously (only applied to `ensure_installed`)
-          sync_install = false,
-          -- List of parsers to ignore installing
-          ignore_install = {},
-          -- Ensure these language parsers are installed
-          ensure_installed = {
-            "lua", "vim", "vimdoc", "query", "regex",
-            "python", "javascript", "typescript", "tsx",
-            "go", "rust", "c", "cpp", "bash", "yaml",
-            "json", "toml", "markdown", "markdown_inline",
-            "html", "css", "dockerfile", "gitignore"
-          },
-          highlight = {
-            enable = true,
-            -- Disable slow treesitter highlight for large files
-            disable = function(lang, buf)
-              local max_filesize = 100 * 1024 -- 100 KB
-              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-              if ok and stats and stats.size > max_filesize then
-                return true
-              end
-            end,
-          },
-          indent = {
-            enable = true
-          },
-        })
-      end,
+      opts = {
+        -- Automatically install missing parsers when entering buffer
+        auto_install = true,
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+        -- List of parsers to ignore installing
+        ignore_install = {},
+        -- Ensure these language parsers are installed
+        ensure_installed = {
+          "lua", "vim", "vimdoc", "query", "regex",
+          "python", "javascript", "typescript", "tsx",
+          "go", "rust", "c", "cpp", "bash", "yaml",
+          "json", "toml", "markdown", "markdown_inline",
+          "html", "css", "dockerfile", "gitignore"
+        },
+        highlight = {
+          enable = true,
+          -- Disable slow treesitter highlight for large files
+          disable = function(lang, buf)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+              return true
+            end
+          end,
+        },
+        indent = {
+          enable = true
+        },
+      },
     },
     -- Telescope for file picking
     {
