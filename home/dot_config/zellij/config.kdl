@@ -2,3 +2,9 @@ theme "tokyo-night"
 default_shell "zsh"
 default_layout "default"
 session_serialization true
+
+keybinds {
+    shared {
+        bind "Ctrl+d" { Detach; }
+    }
+}
