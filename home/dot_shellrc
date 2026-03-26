@@ -3,8 +3,8 @@ if [[ -f ~/.config/op/service-account-token ]]; then
   export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/op/service-account-token)"
 fi
 
-#1password secrets injection
-if command -v op &>/dev/null && [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ] && [ -f "$HOME/.1password-personal" ]; then
+#1password secrets injection (service account on VM, desktop app on Mac)
+if command -v op &>/dev/null && [ -f "$HOME/.1password-personal" ]; then
   source <(op inject -i "$HOME/.1password-personal" 2>/dev/null)
 fi
 

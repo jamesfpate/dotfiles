@@ -1,0 +1,7 @@
+{{- if eq .ostype "mac" }}
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+{{ end -}}
+[include]
+    path = config.personal-signing
