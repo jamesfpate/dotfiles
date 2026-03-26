@@ -326,37 +326,37 @@ require("lazy").setup({
     {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
-      main = "nvim-treesitter.configs",
-      opts = {
-        -- Automatically install missing parsers when entering buffer
-        auto_install = true,
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
-        -- List of parsers to ignore installing
-        ignore_install = {},
-        -- Ensure these language parsers are installed
-        ensure_installed = {
+      main = "nvim-treesitter",
+      lazy = false,
+      config = function()
+        local ts = require("nvim-treesitter")
+        ts.setup()
+
+        -- Install parsers
+        local parsers = {
           "lua", "vim", "vimdoc", "query", "regex",
           "python", "javascript", "typescript", "tsx",
           "go", "rust", "c", "cpp", "bash", "yaml",
           "json", "toml", "markdown", "markdown_inline",
           "html", "css", "dockerfile", "gitignore"
-        },
-        highlight = {
-          enable = true,
-          -- Disable slow treesitter highlight for large files
-          disable = function(lang, buf)
+        }
+        for _, parser in ipairs(parsers) do
+          pcall(ts.install, parser)
+        end
+
+        -- Enable treesitter highlighting and indentation
+        vim.api.nvim_create_autocmd("FileType", {
+          callback = function(args)
             local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
             if ok and stats and stats.size > max_filesize then
-              return true
+              return
             end
+            pcall(vim.treesitter.start, args.buf)
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
           end,
-        },
-        indent = {
-          enable = true
-        },
-      },
+        })
+      end,
     },
     -- Telescope for file picking
     {

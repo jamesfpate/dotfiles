@@ -327,14 +327,10 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
       config = function()
-        require("nvim-treesitter.configs").setup({
-          -- Automatically install missing parsers when entering buffer
+        require("nvim-treesitter").setup({
           auto_install = true,
-          -- Install parsers synchronously (only applied to `ensure_installed`)
           sync_install = false,
-          -- List of parsers to ignore installing
           ignore_install = {},
-          -- Ensure these language parsers are installed
           ensure_installed = {
             "lua", "vim", "vimdoc", "query", "regex",
             "python", "javascript", "typescript", "tsx",
@@ -342,20 +338,17 @@ require("lazy").setup({
             "json", "toml", "markdown", "markdown_inline",
             "html", "css", "dockerfile", "gitignore"
           },
-          highlight = {
-            enable = true,
-            -- Disable slow treesitter highlight for large files
-            disable = function(lang, buf)
-              local max_filesize = 100 * 1024 -- 100 KB
-              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-              if ok and stats and stats.size > max_filesize then
-                return true
-              end
-            end,
-          },
-          indent = {
-            enable = true
-          },
+        })
+        -- Treesitter highlight & indent are now built into Neovim
+        vim.api.nvim_create_autocmd("FileType", {
+          callback = function(args)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+            if ok and stats and stats.size > max_filesize then
+              return
+            end
+            pcall(vim.treesitter.start, args.buf)
+          end,
         })
       end,
     },
