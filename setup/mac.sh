@@ -37,6 +37,29 @@ chezmoi init --apply --source "$DOTFILES_DIR"
 # Re-activate mise to pick up tools installed by chezmoi run_once scripts
 eval "$(mise activate bash)"
 
+# ── Homebrew ─────────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing Homebrew..."
+if ! command -v brew &>/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# ── 1Password CLI ────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing 1Password CLI..."
+if ! command -v op &>/dev/null; then
+  brew install --cask 1password-cli
+fi
+
+# ── Fonts ────────────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing Meslo Nerd Font..."
+oh-my-posh font install meslo
+
 # ── Done ─────────────────────────────────────────────────────────────────────
 
 echo ""

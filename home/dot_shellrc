@@ -3,8 +3,22 @@ if [[ -f ~/.config/op/service-account-token ]]; then
   export OP_SERVICE_ACCOUNT_TOKEN="$(cat ~/.config/op/service-account-token)"
 fi
 
-#mise
-eval "$(~/.local/bin/mise activate zsh)"
+#mise - detect shell automatically
+if [ -x ~/.local/bin/mise ]; then
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(~/.local/bin/mise activate zsh)"
+  elif [ -n "$BASH_VERSION" ]; then
+    eval "$(~/.local/bin/mise activate bash)"
+  fi
+fi
+
+#mise auto-upgrade (once per week)
+MISE_UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
+if [[ ! -f "$MISE_UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$MISE_UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
+  (mise upgrade --yes &>/dev/null &)
+  mkdir -p "$(dirname "$MISE_UPGRADE_MARKER")"
+  touch "$MISE_UPGRADE_MARKER"
+fi
 
 #brew
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
@@ -18,52 +32,57 @@ if [ ! -d ~/.npm-global ]; then
 fi
 export PATH=~/.npm-global/bin:$PATH
 
-#compinit
-autoload -U compinit; compinit
+#zsh-only: compinit, antidote, fzf-tab
+if [ -n "$ZSH_VERSION" ]; then
+  #compinit
+  autoload -U compinit; compinit
 
-#antidote - zsh plugin manager
-ANTIDOTE_HOME="${ZDOTDIR:-$HOME}/.antidote"
-if [[ ! -d "$ANTIDOTE_HOME" ]]; then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_HOME"
+  #antidote - zsh plugin manager
+  ANTIDOTE_HOME="${ZDOTDIR:-$HOME}/.antidote"
+  if [[ ! -d "$ANTIDOTE_HOME" ]]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_HOME"
+  fi
+  source "$ANTIDOTE_HOME/antidote.zsh"
+  antidote load ~/.zsh_plugins.txt
+
+  #fzf-tab config
+  # disable sort when completing `git checkout`
+  zstyle ':completion:*:git-checkout:*' sort false
+  # set descriptions format to enable group support
+  # NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+  zstyle ':completion:*:descriptions' format '[%d]'
+  # set list-colors to enable filename colorizing
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+  # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+  zstyle ':completion:*' menu no
+  # preview directory's content with lsd when completing cd
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
+  # custom fzf flags
+  # NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+  zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+  # To make fzf-tab follow FZF_DEFAULT_OPTS.
+  # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+  zstyle ':fzf-tab:*' use-fzf-default-opts yes
+  # switch group using `<` and `>`
+  zstyle ':fzf-tab:*' switch-group '<' '>'
 fi
-source "$ANTIDOTE_HOME/antidote.zsh"
-antidote load ~/.zsh_plugins.txt
-
-#fzf-tab config
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# preview directory's content with lsd when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
-# custom fzf flags
-# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
-zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
-# To make fzf-tab follow FZF_DEFAULT_OPTS.
-# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
-zstyle ':fzf-tab:*' use-fzf-default-opts yes
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
 
 #dir color
 export LS_COLORS="di=38;5;103"  # Dark blue-grey
 
-#shell specific
+#posh
 if [ -n "$BASH_VERSION" ]; then
-	#posh
 	eval "$(oh-my-posh init bash --config ~/.config/omp/config.omp.json)"
 elif [ -n "$ZSH_VERSION" ]; then
-	#posh
 	eval "$(oh-my-posh init zsh --config ~/.config/omp/config.omp.json)"
 fi
 
 #zoxide
-eval "$(zoxide init zsh)"
+if [ -n "$ZSH_VERSION" ]; then
+  eval "$(zoxide init zsh)"
+elif [ -n "$BASH_VERSION" ]; then
+  eval "$(zoxide init bash)"
+fi
 
 #lsd
 alias ls='lsd'

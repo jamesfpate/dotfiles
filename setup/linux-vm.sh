@@ -50,12 +50,46 @@ chezmoi init --apply --source "$DOTFILES_DIR"
 # Re-activate mise to pick up tools installed by chezmoi run_once scripts
 eval "$(mise activate bash)"
 
+# ── 1Password CLI ────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing 1Password CLI..."
+if ! command -v op &>/dev/null; then
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
+    sudo tee /etc/apt/sources.list.d/1password.list
+  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
+    sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+  sudo apt update -qq && sudo apt install -y 1password-cli
+fi
+
+# ── Fonts ────────────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing Meslo Nerd Font..."
+oh-my-posh font install meslo
+
 # ── Playwright ────────────────────────────────────────────────────────────────
 
 echo ""
 echo "→ Installing Playwright browser dependencies..."
 npx playwright install chromium 2>/dev/null || true
 sudo npx playwright install-deps chromium 2>/dev/null || true
+
+# ── Set zsh as default shell ─────────────────────────────────────────────────
+
+echo ""
+echo "→ Setting zsh as default shell..."
+ZSH_PATH="$(which zsh)"
+if ! grep -q "$ZSH_PATH" /etc/shells; then
+  echo "$ZSH_PATH" | sudo tee -a /etc/shells
+fi
+chsh -s "$ZSH_PATH"
 
 # ── Done ─────────────────────────────────────────────────────────────────────
 
