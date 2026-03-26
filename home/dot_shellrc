@@ -15,7 +15,7 @@ fi
 #mise auto-upgrade (once per week)
 MISE_UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
 if [[ ! -f "$MISE_UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$MISE_UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
-  (mise upgrade --yes &>/dev/null &)
+  (mise self-update --yes &>/dev/null; mise upgrade --yes &>/dev/null &)
   mkdir -p "$(dirname "$MISE_UPGRADE_MARKER")"
   touch "$MISE_UPGRADE_MARKER"
 fi

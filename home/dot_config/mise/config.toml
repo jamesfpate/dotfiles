@@ -1,5 +1,2 @@
-[settings]
-self_update = true
-
 [tools]
 chezmoi = "latest"

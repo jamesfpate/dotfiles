@@ -47,8 +47,16 @@ fi
 echo "→ Applying dotfiles from $DOTFILES_DIR..."
 chezmoi init --apply --source "$DOTFILES_DIR"
 
-# Re-activate mise to pick up tools installed by chezmoi run_once scripts
+# Install node first (needed for npm-based tools like claude-code)
+echo ""
+echo "→ Installing node..."
+mise install node
 eval "$(mise activate bash)"
+
+# Install remaining mise tools
+echo ""
+echo "→ Installing mise tools..."
+mise install
 
 # ── 1Password CLI ────────────────────────────────────────────────────────────
 
@@ -80,6 +88,19 @@ echo ""
 echo "→ Installing Playwright browser dependencies..."
 npx playwright install chromium 2>/dev/null || true
 sudo npx playwright install-deps chromium 2>/dev/null || true
+
+# ── Auto-updates ─────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Setting up automatic updates..."
+
+# apt: unattended-upgrades for system packages
+sudo apt install -y unattended-upgrades
+sudo dpkg-reconfigure -plow unattended-upgrades
+
+# mise: nightly cron job for mise self-update + tool upgrades
+MISE_CRON="0 3 * * * $HOME/.local/bin/mise self-update --yes 2>/dev/null; $HOME/.local/bin/mise upgrade --yes 2>/dev/null"
+(crontab -l 2>/dev/null | grep -v "mise"; echo "$MISE_CRON") | crontab -
 
 # ── Set zsh as default shell ─────────────────────────────────────────────────
 

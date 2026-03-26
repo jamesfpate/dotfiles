@@ -34,8 +34,16 @@ fi
 echo "→ Applying dotfiles from $DOTFILES_DIR..."
 chezmoi init --apply --source "$DOTFILES_DIR"
 
-# Re-activate mise to pick up tools installed by chezmoi run_once scripts
+# Install node first (needed for npm-based tools like claude-code)
+echo ""
+echo "→ Installing node..."
+mise install node
 eval "$(mise activate bash)"
+
+# Install remaining mise tools
+echo ""
+echo "→ Installing mise tools..."
+mise install
 
 # ── Homebrew ─────────────────────────────────────────────────────────────────
 
