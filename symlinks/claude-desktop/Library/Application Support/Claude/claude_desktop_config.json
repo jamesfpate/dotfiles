@@ -9,5 +9,11 @@
         "src/mcp_domain_availability/main.py"
       ]
     }
+  },
+  "preferences": {
+    "coworkWebSearchEnabled": true,
+    "coworkScheduledTasksEnabled": true,
+    "ccdScheduledTasksEnabled": true,
+    "sidebarMode": "chat"
   }
 }

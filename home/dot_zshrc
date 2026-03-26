@@ -1,0 +1,2 @@
+[ -f ~/.shellrc ] && source ~/.shellrc
+export PATH="$HOME/go/bin:$PATH"

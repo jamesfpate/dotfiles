@@ -1,1 +1,2 @@
-experimental = true
+[tools]
+chezmoi = "latest"
