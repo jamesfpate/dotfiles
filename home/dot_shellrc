@@ -122,5 +122,8 @@ alias gc="git commit -m"
 alias gp="git push"
 alias gac="git add . && git commit -m"
 
+#chezmoi
+alias ca="chezmoi apply --force"
+
 #nvim
 alias n="nvim"
