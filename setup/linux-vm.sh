@@ -76,6 +76,18 @@ if ! command -v op &>/dev/null; then
   sudo apt update -qq && sudo apt install -y 1password-cli
 fi
 
+# ── Shell Color Scripts ──────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing shell-color-scripts..."
+if ! command -v colorscript &>/dev/null; then
+  git clone https://gitlab.com/dwt1/shell-color-scripts.git /tmp/shell-color-scripts
+  cd /tmp/shell-color-scripts
+  sudo make install
+  cd -
+  rm -rf /tmp/shell-color-scripts
+fi
+
 # ── Fonts ────────────────────────────────────────────────────────────────────
 
 echo ""
