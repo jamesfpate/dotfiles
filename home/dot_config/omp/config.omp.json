@@ -55,7 +55,7 @@
 	"template": " {{.HEAD}}",
           "properties": {
             "fetch_status": true,
-            "branch_icon": "\ue725"
+            "branch_icon": "\ue725 "
           }
         },
         {
@@ -68,7 +68,7 @@
           "type": "session",
           "style": "plain",
           "foreground": "p:terminal-magenta",
-          "template": "{{ if .Env.SSH_CONNECTION }} \uf489 {{ .HostName }}{{ end }}"
+          "template": "{{ if .Env.SSH_CONNECTION }} \uf489  {{ .HostName }}{{ end }}"
         }
       ],
       "type": "prompt"
