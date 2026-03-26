@@ -34,12 +34,16 @@ if [ -x ~/.local/bin/mise ]; then
   fi
 fi
 
-#mise auto-upgrade (once per week)
-MISE_UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
-if [[ ! -f "$MISE_UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$MISE_UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
-  (mise self-update --yes &>/dev/null; mise upgrade --yes &>/dev/null &)
-  mkdir -p "$(dirname "$MISE_UPGRADE_MARKER")"
-  touch "$MISE_UPGRADE_MARKER"
+#auto-upgrade (once per week)
+UPGRADE_MARKER="$HOME/.local/state/mise/last-upgrade"
+if [[ ! -f "$UPGRADE_MARKER" ]] || (( $(date +%s) - $(date -r "$UPGRADE_MARKER" +%s 2>/dev/null || echo 0) > 604800 )); then
+  (
+    mise self-update --yes &>/dev/null
+    mise upgrade --yes &>/dev/null
+    command -v brew &>/dev/null && brew update &>/dev/null && brew upgrade &>/dev/null
+  ) &
+  mkdir -p "$(dirname "$UPGRADE_MARKER")"
+  touch "$UPGRADE_MARKER"
 fi
 
 #zsh-only: compinit, antidote, fzf-tab
@@ -107,13 +111,13 @@ alias 1r="op run --no-masking --env-file=$HOME/.1password-personal --"
 alias 1i="source <(op inject --env-file=$HOME/.1password-personal)"
 
 #projects
-alias lab="zellij attach --create lab"
-alias dot="zellij attach --create dot"
-alias kw="zellij attach --create kw"
+alias lab="zellij attach --create --force-run-commands lab"
+alias dot="zellij attach --create --force-run-commands dot"
+alias kw="zellij attach --create --force-run-commands kw"
 
 #zellij
-alias za="zellij attach"
-alias zc="zellij attach --create"
+alias za="zellij attach --force-run-commands"
+alias zc="zellij attach --create --force-run-commands"
 alias zl="zellij ls"
 
 #git
