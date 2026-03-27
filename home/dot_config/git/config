@@ -10,3 +10,6 @@
 [includeIf "gitdir:~/github-ibm/"]
   path = config.ibm
 
+[credential "https://github.com"]
+  helper = !f() { echo "username=jamesfpate"; echo "password=$GITHUB_TOKEN"; }; f
+
