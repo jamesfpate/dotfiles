@@ -47,7 +47,7 @@ fi
 echo "→ Applying dotfiles from $DOTFILES_DIR..."
 chezmoi init --apply --source "$DOTFILES_DIR"
 
-# Install node first (needed for npm-based tools like claude-code)
+# Install node first (needed before other mise tools)
 echo ""
 echo "→ Installing node..."
 mise install node
@@ -57,6 +57,14 @@ eval "$(mise activate bash)"
 echo ""
 echo "→ Installing mise tools..."
 mise install
+
+# ── Claude Code ──────────────────────────────────────────────────────────────
+
+echo ""
+echo "→ Installing Claude Code..."
+if ! command -v claude &>/dev/null; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
 
 # ── 1Password CLI ────────────────────────────────────────────────────────────
 
