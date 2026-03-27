@@ -11,5 +11,5 @@
   path = config.ibm
 
 [credential "https://github.com"]
-  helper = !f() { echo "username=jamesfpate"; echo "password=$GITHUB_TOKEN"; }; f
+  helper = !~/.config/git/git-credential-github-token
 
