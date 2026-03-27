@@ -1,3 +1,7 @@
+[user]
+  name = James Pate
+  email = james@jamespate.net
+
 [init]
   defaultBranch = main
 
