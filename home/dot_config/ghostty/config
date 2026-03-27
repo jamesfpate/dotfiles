@@ -1,2 +1,3 @@
 theme = tokyonight
 keybind = shift+enter=text:\n
+macos-option-as-alt = true

@@ -5,6 +5,6 @@ session_serialization true
 
 keybinds {
     shared {
-        bind "Ctrl d" { Detach; }
+        bind "Alt d" { Detach; }
     }
 }

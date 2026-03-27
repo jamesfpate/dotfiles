@@ -1,1 +1,6 @@
 [ -f ~/.shellrc ] && source ~/.shellrc
+
+# Auto-attach to zellij on SSH connections
+if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$ZELLIJ" ]] && command -v zellij &>/dev/null; then
+  zellij attach -c dev
+fi
