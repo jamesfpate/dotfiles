@@ -3,7 +3,8 @@
 version: '3'
 
 tasks:
-  stow:
-    desc: update symlinks with stow
+  sync:
+    desc: Sync dotfiles and update mise tools
     cmds:
-      - cd symlinks && stow --restow --adopt --target ~ --verbose --no-folding */ && git restore . && cd ..
+      - chezmoi apply
+      - mise install
