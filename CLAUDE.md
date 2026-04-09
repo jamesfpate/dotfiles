@@ -86,6 +86,7 @@ mise current
 - LSPs are managed by Mason.nvim, not mise
 - Zsh plugins are managed by Antidote (auto-installs on first zsh load)
 - 1Password integration requires manual signin for security
+- Never commit changes automatically — always let the user commit manually
 
 ---
 

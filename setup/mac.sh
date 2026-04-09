@@ -34,13 +34,7 @@ fi
 echo "→ Applying dotfiles from $DOTFILES_DIR..."
 chezmoi init --apply --source "$DOTFILES_DIR"
 
-# Install node first (needed before other mise tools)
-echo ""
-echo "→ Installing node..."
-mise install node
-eval "$(mise activate bash)"
-
-# Install remaining mise tools
+# Install mise tools
 echo ""
 echo "→ Installing mise tools..."
 mise install
