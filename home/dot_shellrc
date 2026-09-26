@@ -127,6 +127,7 @@ alias gp="git push"
 alias gac="git add . && git commit -m"
 
 #chezmoi
+alias dsync='task -d "$(chezmoi source-path)/.." sync'
 alias ca="chezmoi apply --force"
 
 #nvim
